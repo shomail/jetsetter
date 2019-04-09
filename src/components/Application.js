@@ -32,6 +32,33 @@ class Application extends Component {
     })
   }
 
+  removeItem = selectedItem => {
+    this.setState({
+      items: this.state.items.filter(item => item.id !== selectedItem.id)
+    })
+  }
+
+  toggleItem = selectedItem => {
+    const items = this.state.items.map(item => {
+      if(item.id !== selectedItem.id) return item;
+      return {
+        ...selectedItem,
+        packed: !selectedItem.packed,
+      }
+    })
+    this.setState({ items })
+  }
+
+  unpack = () => {
+    const items = this.state.items.map(item => {
+      return {
+        ...item,
+        packed: false,
+      }
+    })
+    this.setState({ items })
+  }
+
   // How are we going to manipulate the state?
   // Ideally, users are going to want to add, remove,
   // and check off items, right?
@@ -45,9 +72,9 @@ class Application extends Component {
       <div className="Application">
         <NewItem onSubmit={this.addItem} />
         <CountDown />
-        <Items title="Unpacked Items" items={unpackedItems} />
-        <Items title="Packed Items" items={packedItems} />
-        <button className="button full-width">Mark All As Unpacked</button>
+        <Items title="Unpacked Items" items={unpackedItems} onRemove={this.removeItem} onToggle={this.toggleItem} />
+        <Items title="Packed Items" items={packedItems} onRemove={this.removeItem} onToggle={this.toggleItem} />
+        <button className="button full-width" onClick={this.unpack}>Mark All As Unpacked</button>
       </div>
     );
   }
