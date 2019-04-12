@@ -22,15 +22,15 @@ class ItemStore extends EventEmitter {
 
         AppDispatcher.register(action => {
             if (action.type === 'ADD_NEW_ITEM') {
-
+                return this.addItem(action.item);
             }
 
             if (action.type === 'TOGGLE_ITEM') {
-                
+                return this.toggleItem(action.item);
             }
 
             if (action.type === 'REMOVE_ITEM') {
-                
+                return this.removeItem(action.item);
             }
         });
     }
