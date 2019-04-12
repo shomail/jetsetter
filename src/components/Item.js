@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import { toggleItem, removeItem} from '../actions';
 import './Item.css';
 
 class Item extends Component {
+  handleChange = () => {
+    toggleItem(this.props.item);
+  }
+  handleRemove = () => {
+    removeItem(this.props.item);
+  }
+
   render() {
     const { item } = this.props;
     return (
@@ -10,12 +18,12 @@ class Item extends Component {
           <input
             type="checkbox"
             checked={item.packed}
-            onChange={() => {}}
+            onChange={this.handleChange}
             id={item.id}
           />
           {item.value}
         </label>
-        <button className="Item-remove" onClick={() => {}}>
+        <button className="Item-remove" onClick={this.handleRemove}>
           Remove
         </button>
       </article>
