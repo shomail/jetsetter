@@ -32,6 +32,10 @@ class ItemStore extends EventEmitter {
             if (action.type === 'REMOVE_ITEM') {
                 return this.removeItem(action.item);
             }
+
+            if(action.type === 'MARK_ALL_AS_UNPACKED') {
+                return this.markAllAsUnpacked()
+            }
         });
     }
 
@@ -55,6 +59,11 @@ class ItemStore extends EventEmitter {
     removeItem = itemToRemove => {
         items = items.filter(item => item.id !== itemToRemove.id)
         this.emit('change');
+    }
+
+    markAllAsUnpacked = () => {
+        items = items.map(item => ({...item, packed: false}));
+        this.emit('change')
     }
 }
 
