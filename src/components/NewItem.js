@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { addItem } from '../actions';
+import uniqueId from 'lodash/uniqueId';
+
 import './NewItem.css';
 
 class NewItem extends Component {
-  state = { value: '' };
+  state = {
+    value: '',
+  };
 
   shouldComponentUpdate(newProps, newState) {
     return this.state.value !== newState.value;
@@ -12,18 +15,15 @@ class NewItem extends Component {
   handleChange = event => {
     const value = event.target.value;
     this.setState({ value });
-
   };
 
   handleSubmit = event => {
+    const { onSubmit } = this.props;
     const { value } = this.state;
 
     event.preventDefault();
-
-    addItem(value);
-
+    onSubmit({ value, packed: false, id: uniqueId() });
     this.setState({ value: '' });
-
   };
 
   render() {
