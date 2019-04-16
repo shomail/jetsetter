@@ -1,34 +1,22 @@
 import React, { Component } from 'react';
 import Item from './Item';
-import Filter from './Filter';
+import './Items.css';
 
 class Items extends Component {
-  state = {
-    // What state does this component have?
-    searchTerm: '',
-  };
-
-  updateSearchTerm = searchTerm => {
-    this.setState({ searchTerm })
-  };
-
   render() {
-    const { title, items } = this.props;
+    const { title, items, onCheckOff, onRemove } = this.props;
     return (
       <section className="Items">
         <h2>
           {title} ({items.length})
         </h2>
-        <Filter searchTerm={this.state.searchTerm} onChange={this.updateSearchTerm} />
-        {items
-          .filter(item =>
-            // Hmm… this needs some work.
-            item.value.toLowerCase().includes(this.state.searchTerm.toLowerCase()),
-          )
-          .map(item => (
+        { this.props.render && this.props.render() }
+        {items.map(item => (
             <Item
               key={item.id}
-              item={item}
+              onCheckOff={() => onCheckOff(item.id)}
+              onRemove={() => onRemove(item.id)}
+              {...item}
             />
           ))}
       </section>
