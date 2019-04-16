@@ -7,7 +7,7 @@ import {
 } from '../actions/items-actions'
 
 const mapStateToProps = ({ items, filter }) => {
-  return { items: items.filter(item => !item.packed && item.value.includes(filter.unpackedItemsFilter)) };
+  return { items: items.filter(item => !item.packed && item.value.toLowerCase().includes(filter.unpackedItemsFilter.toLowerCase())) };
 };
 
 const mapDispatchToProps = (dispatch) => ({
