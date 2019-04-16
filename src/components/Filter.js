@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import './Filter.css';
 
 class Filter extends PureComponent {
   handleChange = event => {
