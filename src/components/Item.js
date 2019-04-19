@@ -26,7 +26,7 @@ class Item extends Component {
 
 Item.propTypes = {
   packed: PropTypes.bool,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
   onCheckOff: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,

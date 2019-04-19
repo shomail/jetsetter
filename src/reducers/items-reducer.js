@@ -4,12 +4,11 @@ export default function(state = {}, action) {
   const { past, present, future } = state;
 
   if (action.type === ADD_NEW_ITEM) {
-    const {id, packed, value} = action;
+    const item = action.item;
     return {
       past: [present, ...past],
-      present: [...present, { id, packed, value }],
+      present: [...present, item],
       future,
-
     };
   }
 
