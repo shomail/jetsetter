@@ -1,5 +1,16 @@
-import { ADD_NEW_ITEM, REMOVE_ITEM, TOGGLE_ITEM, MARK_ALL_AS_UNPACKED, UNDO_ITEM_ACTION, REDO_ITEM_ACTION } from '../constants';
+import { ADD_NEW_ITEM, REMOVE_ITEM, TOGGLE_ITEM, MARK_ALL_AS_UNPACKED, UNDO_ITEM_ACTION, REDO_ITEM_ACTION, UPDATE_ALL_ITEMS } from '../constants';
 import Api from '../lib/api';
+
+export const getAllItems = () => {
+ return dispatch => {
+   Api.getAll().then(items => {
+     dispatch({
+       type: UPDATE_ALL_ITEMS,
+       items,
+     })
+   })
+ }
+}
 
 export const addNewItem = (value) => {
   const item =  {

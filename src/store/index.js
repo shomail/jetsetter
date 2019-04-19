@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 
 import reducers from '../reducers';
 import initialState from './initial-state';
+import { getAllItems } from '../actions/items-actions';
 
 const middleware = [thunk];
 const enhancers = [];
@@ -13,5 +14,7 @@ const store = createStore(
   initialState,
   composeEnhancers(applyMiddleware(...middleware), ...enhancers),
 );
+
+store.dispatch(getAllItems());
 
 export default store;

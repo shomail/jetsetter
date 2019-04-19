@@ -1,8 +1,16 @@
-import { ADD_NEW_ITEM, REMOVE_ITEM, TOGGLE_ITEM, MARK_ALL_AS_UNPACKED, UNDO_ITEM_ACTION, REDO_ITEM_ACTION } from '../constants';
+import { ADD_NEW_ITEM, REMOVE_ITEM, TOGGLE_ITEM, MARK_ALL_AS_UNPACKED, UNDO_ITEM_ACTION, REDO_ITEM_ACTION, UPDATE_ALL_ITEMS } from '../constants';
 
 export default function(state = {}, action) {
   const { past, present, future } = state;
 
+  if (action.type === UPDATE_ALL_ITEMS) {
+    return {
+      past,
+      present: action.items,
+      future,
+    }
+  }
+  
   if (action.type === ADD_NEW_ITEM) {
     const item = action.item;
     return {
