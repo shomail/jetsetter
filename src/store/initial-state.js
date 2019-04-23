@@ -1,16 +1,9 @@
-import uniqueId from 'lodash/uniqueId';
-
-const items = [];
-
 export default {
-  items: {
-    past: [],
-    present: items,
-    future: [],
-  },
+  items: [],
   filter: {
     packedItemsFilter: '',
     unpackedItemsFilter: '',
   },
   newItemValue: '',
+  countdown: '',
 };
