@@ -1,51 +1,69 @@
-import { ADD_NEW_ITEM, REMOVE_ITEM, TOGGLE_ITEM, MARK_ALL_AS_UNPACKED, UNDO_ITEM_ACTION, REDO_ITEM_ACTION, UPDATE_ALL_ITEMS } from '../constants';
+import {
+  UPDATE_ALL_ITEMS,
+  ADD_NEW_ITEM,
+  REMOVE_ITEM,
+  TOGGLE_ITEM,
+  MARK_ALL_AS_UNPACKED,
+} from '../constants';
+
 import Api from '../lib/api';
 
 export const getAllItems = () => {
- return dispatch => {
-   Api.getAll().then(items => {
-     dispatch({
-       type: UPDATE_ALL_ITEMS,
-       items,
-     })
-   })
- }
-}
+  return dispatch => {
+    Api.getAll().then(items => {
+      dispatch({
+        type: UPDATE_ALL_ITEMS,
+        items,
+      });
+    });
+  };
+};
 
-export const addNewItem = (value) => {
-  const item =  {
+export const addNewItem = value => {
+  const item = {
     packed: false,
     value,
-  }
+  };
 
   return dispatch => {
     Api.add(item).then(item => {
       dispatch({
         type: ADD_NEW_ITEM,
-        item,
-      })
+        item
+      });
     });
-  }
+  };
 };
 
-export const toggleItem = (id) => ({
-  type: TOGGLE_ITEM,
-  id,
-});
+export const toggleItem = item => {
+  const updatedItem = { ...item, packed: !item.packed };
+  return (dispatch, getState) => {
+    Api.update(updatedItem).then(() => {
+      dispatch({
+        type: TOGGLE_ITEM,
+        item: updatedItem,
+      });
+    });
+  };
+};
 
-export const removeItem = (id) => ({
-  type: REMOVE_ITEM,
-  id,
-});
+export const removeItem = item => {
+  return dispatch => {
+    Api.delete(item).then(() => {
+      dispatch({
+        type: REMOVE_ITEM,
+        id: item.id,
+      });
+    });
+  };
+};
 
-export const markAllAsUnpacked = () => ({
-  type: MARK_ALL_AS_UNPACKED,
-});
-
-export const undoItemAction = () => ({
-  type: UNDO_ITEM_ACTION
-});
-
-export const redoItemAction = () => ({
-  type: REDO_ITEM_ACTION
-});
+export const markAllAsUnpacked = () => {
+  return dispatch => {
+    Api.markAllAsUnpacked().then(() => {
+      dispatch({
+        type: MARK_ALL_AS_UNPACKED,
+      });
+    });
+  };
+};
