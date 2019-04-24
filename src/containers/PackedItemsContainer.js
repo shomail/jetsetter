@@ -4,15 +4,15 @@ import Items from '../components/Items';
 import { toggleItem, removeItem } from '../actions/items-actions';
 
 const mapStateToProps = ({ items, filter }) => {
-  return { items: items.present.filter(item => item.packed && item.value.toLowerCase().includes(filter.packedItemsFilter.toLowerCase())) };
+  return { items: items.filter(item => item.packed && item.value.includes(filter.packedItemsFilter)) };
 };
 
 const mapDispatchToProps = dispatch => ({
-  onCheckOff(id) {
-    dispatch(toggleItem(id));
+  onCheckOff(item) {
+    dispatch(toggleItem(item));
   },
-  onRemove(id) {
-    dispatch(removeItem(id));
+  onRemove(item) {
+    dispatch(removeItem(item));
   },
 });
 
