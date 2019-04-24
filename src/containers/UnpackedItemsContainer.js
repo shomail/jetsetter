@@ -7,16 +7,16 @@ import {
 } from '../actions/items-actions'
 
 const mapStateToProps = ({ items, filter }) => {
-  return { items: items.present.filter(item => !item.packed && item.value.toLowerCase().includes(filter.unpackedItemsFilter.toLowerCase())) };
+  return { items: items.filter(item => !item.packed && item.value.includes(filter.unpackedItemsFilter)) };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onCheckOff(id) {
-    dispatch(toggleItem(id))
+const mapDispatchToProps = dispatch => ({
+  onCheckOff(item) {
+    dispatch(toggleItem(item));
   },
-  onRemove(id) {
-    dispatch(removeItem(id))
-  }
+  onRemove(item) {
+    dispatch(removeItem(item));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Items);
